@@ -1,0 +1,17 @@
+{
+    "name": "giftnuss/siox-db",
+    "require": {
+        "giftnuss/test.php": "@dev"
+    },
+    "autoload": {
+        "psr-0": {
+            "Siox\\": "src/"
+        }
+    },
+    "version": "v0.0.1",
+    "license": "BSD-3",
+    "authors":[
+       {"name": "Zend-Framework Developers", "role": "Original Authors"},
+       {"name": "Sebastian Knapp", "email": "sk@computer-leipzig.com", "role": "Developer"}
+    ]
+}
