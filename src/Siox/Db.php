@@ -2,12 +2,14 @@
 
 namespace Siox;
 
+use PDO;
 use Exception;
 use Siox\Db\Exception as DbException;
 
 class Db
 {
     protected $adapter;
+    protected $sql;
 
     public static $default_driver = "mysql";
     public static $default_charset = "UTF8";
@@ -47,6 +49,11 @@ class Db
             throw new DbException($e->getMessage());
         }
     }
+    
+    public function getConnection()
+    {
+		return $this->adapter;
+	}
 
     protected function _connect_dsn()
     {
@@ -72,8 +79,29 @@ class Db
 
         $this->cinfo['dsn'] = "mysql:" . join(";",$data);
         $this->_connect_dsn();
-        $this->adpter->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
+        $this->adapter->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
     }
-
     
+    public function fetchColumn($sql,$args = array(),$col = 0)
+    {
+		$adapter = $this->getConnection();
+	    if($sql instanceof Siox\Db\Sql) {
+		    $sql = $sql->toString();	
+		}
+		$stmt = $adapter->prepare($sql);
+		$stmt->execute($args);
+		$result = array();
+		while(($val = $stmt->fetchColumn($col)) !== FALSE) {
+			$result[] = $val;
+		}
+		return $result;
+	}
+	
+	public function sql()
+	{
+	    if(empty($this->sql)) {
+		    $this->sql = new Db\Sql($this);	
+		}
+		return $this->sql;
+	}
 }
