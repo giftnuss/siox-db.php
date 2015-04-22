@@ -12,7 +12,8 @@ class ConstraintFactory extends AbstractTableFactory
         $upper = array_map('strtoupper',$columns);
         $name = join('_', $upper) . '_UNIQ';
         $unique = new UniqueKey($columns,$name);
-        $this->table->addConstraint($unique);
+        $this->tableObj->addConstraint($unique);
+        $this->current = $unique;
         return $this;
     }
     

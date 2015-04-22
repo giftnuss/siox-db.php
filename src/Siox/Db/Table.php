@@ -14,8 +14,7 @@ class Table
     protected $type = null;
     protected $columns = null;
     protected $constraints = null;
-
-    protected $_currentColumn;
+    protected $comment = null;
     
     public function __construct($name)
     {
@@ -73,4 +72,15 @@ class Table
     {
         return $this->name;
     }
+    
+    public function setComment($comment)
+    {
+		$this->comment = $comment;
+		return $this;
+	}
+	
+	public function getComment()
+	{
+		return $this->comment;
+	}
 }

@@ -82,6 +82,11 @@ class Db
         $this->adapter->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
     }
     
+    public function exec($sql)
+    {
+		return $this->getConnection()->exec($sql);
+	}
+    
     public function fetchColumn($sql,$args = array(),$col = 0)
     {
 		$adapter = $this->getConnection();

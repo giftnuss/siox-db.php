@@ -2,7 +2,7 @@
 
 namespace Siox\Db\Constraint;
 
-class PrimaryKey
+class PrimaryKey extends Base
 {
 
 }

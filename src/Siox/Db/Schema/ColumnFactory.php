@@ -12,7 +12,8 @@ class ColumnFactory extends AbstractTableFactory
             $column = new Column($this->table);
             $column->setName($args[0]);
             $column->setType($typeObj);
-            $this->table->addColumn($column);
+            $this->tableObj->addColumn($column);
+            $this->current = $column;
         }
         return $this;
     }

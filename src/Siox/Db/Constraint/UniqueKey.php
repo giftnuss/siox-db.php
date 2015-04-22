@@ -2,7 +2,7 @@
 
 namespace Siox\Db\Constraint;
 
-class UniqueKey
+class UniqueKey extends Base
 {
 
 }

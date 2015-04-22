@@ -8,6 +8,7 @@ class Column implements ColumnInterface
     
     protected $name;
     protected $type;
+    protected $comment;
     
     public function __construct($table, $name=null)
     {
@@ -38,4 +39,15 @@ class Column implements ColumnInterface
         $this->type = $type;
         return $this;
     }
+    
+    public function setComment($comment)
+    {
+		$this->comment = $comment;
+		return $this;
+	}
+	
+	public function getComment()
+	{
+		return $this->comment;
+	}
 }

@@ -20,6 +20,11 @@ class DefineColumn extends Base implements SqlInterface
 		    $this->getPlatform()->getTypeString($type)
 		);
 		
-		return join(" ",$result);
+		$return = join(" ",$result);
+		$comment = $this->column->getComment();
+		if(isset($comment)) {
+			$this->getPlatform()->addColumnComment($return,$comment);
+		}
+		return $return;
 	}
 }

@@ -18,21 +18,38 @@ class Base
 	
 	public function getTypeString($type)
 	{
-		$typename = $type->name();
-		$result = '';
-		if($typename) {
-			$result .= $typename;
-		}
-		if($type->has('size')) {
-		    $size = $type->size();
-		    if(isset($size)) {
-		        $result .= '(' . $size . ')';	
-		    }
-		}
+		$result = $this->getPlatformTypename($type);
+        $size = $this->getPlatformTypeSize($type);
+        
+        if(isset($size)) {
+			$result .= '(' . $size . ')';
+	    }
 		if(!$type->nullable()) {
 		    $result .= " NOT NULL";	
 		}
 		
 		return $result;
 	}
+	
+	public function getPlatformTypename($type)
+	{
+		return $type->name();
+	}
+	
+	public function getPlatformTypeSize($type)
+	{	
+		if($type->has('size')) {
+		    return $type->size();
+		}
+	}
+	
+	public function formatComment($comment)
+	{
+		return ' -- ' . str_replace("\n","\n-- ",$comment);
+	}
+	
+	public function addColumnComment(&$return, $comment)
+	{
+        $return = $this->formatComment($comment) . "\n    " . $return;
+    }
 }

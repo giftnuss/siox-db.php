@@ -2,10 +2,24 @@
 
 namespace Siox\Db\Sql;
 
+use Exception;
+use Siox\Db\Sql\Exception as SqlException;
+
 class CreateTable extends Base implements SqlInterface
 {
 	protected $table;
-	
+
+    public function exec()
+    {
+		try {
+			$this->sql->getDb()->exec( $this->getSqlString() );
+			return true;
+		}
+		catch(Exception $e) {
+			throw new SqlException( $e->getMessage() );
+		}
+	}
+
     public function setTable($table)
     {
 		$this->table = $table;

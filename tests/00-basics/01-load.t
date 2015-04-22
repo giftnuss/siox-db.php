@@ -18,6 +18,7 @@ use_ok('Siox\\Db\\Schema\\TypeFactory');
 
 use_ok('Siox\\Db\\Sql');
 use_ok('Siox\\Db\\Sql\\Base');
+use_ok('Siox\\Db\\Sql\\Exception');
 use_ok('Siox\\Db\\Sql\\CreateTable');
 use_ok('Siox\\Db\\Sql\\DefineColumn');
 use_ok('Siox\\Db\\Sql\\SqlInterface');
