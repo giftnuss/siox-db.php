@@ -42,6 +42,14 @@ class Base
 		    return $type->size();
 		}
 	}
+
+    public function quoteIdentifierList($identifierList)
+    {
+		foreach($identifierList as $col) {
+			$list[] = $this->quoteIdentifier($col);
+		}
+		return join(",",$list);
+	}
 	
 	public function formatComment($comment)
 	{
@@ -51,5 +59,11 @@ class Base
 	public function addColumnComment(&$return, $comment)
 	{
         $return = $this->formatComment($comment) . "\n    " . $return;
+    }
+    
+    public function formatPrimaryKey($constraint)
+    {
+		return sprintf('PRIMARY KEY (%s)',
+		    $this->quoteIdentifierList( $constraint->getColumns() ));
     }
 }

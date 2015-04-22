@@ -12,8 +12,8 @@ class Table
 {
     protected $name = null;
     protected $type = null;
-    protected $columns = null;
-    protected $constraints = null;
+    protected $columns = array();
+    protected $constraints = array();
     protected $comment = null;
     
     public function __construct($name)

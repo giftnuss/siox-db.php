@@ -2,8 +2,8 @@
 
 namespace Siox\Db\Sql;
 
-use Exception;
 use Siox\Db\Sql\Exception as SqlException;
+use Exception as CoreException;
 
 class CreateTable extends Base implements SqlInterface
 {
@@ -15,7 +15,7 @@ class CreateTable extends Base implements SqlInterface
 			$this->sql->getDb()->exec( $this->getSqlString() );
 			return true;
 		}
-		catch(Exception $e) {
+		catch(CoreException $e) {
 			throw new SqlException( $e->getMessage() );
 		}
 	}
@@ -37,6 +37,10 @@ class CreateTable extends Base implements SqlInterface
 			$column = $this->defineColumn($col);
 			$result[] = $column->getSqlString();
 		}
+		foreach($this->table->getConstraints() as $cst) {
+		    $constraint = $this->defineConstraint($cst);
+		    $result[] = $constraint->getSqlString(); 
+		}
 		
 		$sql .= join(",\n    ",$result);
 		$sql .= "\n)";
@@ -48,5 +52,12 @@ class CreateTable extends Base implements SqlInterface
 	    $column = new DefineColumn( $this->sql );
 	    $column->setColumn( $col );
 	    return $column;
+	}
+	
+	public function defineConstraint($con)
+	{
+		$constraint = new DefineConstraint( $this->sql );
+		$constraint->setConstraint( $con );
+		return $constraint;
 	}
 }

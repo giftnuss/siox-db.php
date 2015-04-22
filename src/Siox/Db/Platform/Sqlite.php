@@ -63,5 +63,10 @@ class Sqlite extends Base
         }
         return '"' . $identifierChain . '"';
     }
-
+	
+    public function formatUniqueKey($constraint)
+    {
+		return sprintf('CONSTRAINT %s UNIQUE (%s)',$constraint->getName(),
+		    $this->quoteIdentifierList( $constraint->getColumns() ));
+    }
 }
