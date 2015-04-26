@@ -1,2 +1,6 @@
 *~
+composer.lock
+composer.phar
 tests/temp
+sample/anagrom/data
+vendor

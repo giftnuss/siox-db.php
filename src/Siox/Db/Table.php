@@ -15,7 +15,7 @@ class Table
     protected $columns = array();
     protected $constraints = array();
     protected $comment = null;
-    
+
     public function __construct($name)
     {
         if ($name) {
@@ -32,13 +32,13 @@ class Table
         $this->columns[$name] = $column;
         return $this;
     }
-    
+
     public function addConstraint($constraint)
     {
         $this->constraints[] = $constraint;
         return $this;
     }
-    
+
 
     public function setColumns(array $columns)
     {
@@ -72,15 +72,20 @@ class Table
     {
         return $this->name;
     }
-    
+
     public function setComment($comment)
     {
 		$this->comment = $comment;
 		return $this;
 	}
-	
+
 	public function getComment()
 	{
 		return $this->comment;
 	}
+
+    public function getColumnNames()
+    {
+        #; U
+    }
 }

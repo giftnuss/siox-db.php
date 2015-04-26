@@ -5,16 +5,18 @@ namespace Siox;
 use PDO;
 use Exception;
 use Siox\Db\Exception as DbException;
+use Siox\Db\Information;
 
 class Db
 {
     protected $adapter;
     protected $sql;
+    protected $info;
 
     public static $default_driver = "mysql";
     public static $default_charset = "UTF8";
 
-    protected $cinfo = array(); 
+    protected $cinfo = array();
 
     public static function factory(array $args)
     {
@@ -29,7 +31,7 @@ class Db
         $this->cinfo = array(
             'driver' => self::$default_driver,
             'charset' => self::$default_charset
-        );        
+        );
 
         foreach($args as $k => $v) {
             $this->cinfo[$k] = $v;
@@ -49,7 +51,7 @@ class Db
             throw new DbException($e->getMessage());
         }
     }
-    
+
     public function getConnection()
     {
 		return $this->adapter;
@@ -81,17 +83,17 @@ class Db
         $this->_connect_dsn();
         $this->adapter->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
     }
-    
+
     public function exec($sql)
     {
 		return $this->getConnection()->exec($sql);
 	}
-    
+
     public function fetchColumn($sql,$args = array(),$col = 0)
     {
 		$adapter = $this->getConnection();
 	    if($sql instanceof Siox\Db\Sql) {
-		    $sql = $sql->toString();	
+		    $sql = $sql->toString();
 		}
 		$stmt = $adapter->prepare($sql);
 		$stmt->execute($args);
@@ -101,12 +103,20 @@ class Db
 		}
 		return $result;
 	}
-	
+
 	public function sql()
 	{
 	    if(empty($this->sql)) {
-		    $this->sql = new Db\Sql($this);	
+		    $this->sql = new Db\Sql($this);
 		}
 		return $this->sql;
 	}
+
+    public function info()
+    {
+        if(empty($this->info)) {
+            $this->info = new Information($this);
+        }
+        return $this->info;
+    }
 }
