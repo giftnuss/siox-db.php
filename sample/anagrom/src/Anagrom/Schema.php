@@ -3,6 +3,7 @@
 namespace Anagrom;
 
 use Siox\Db\Schema as Base;
+use Anagrom\Model;
 
 class Schema extends Base
 {
@@ -33,7 +34,7 @@ class Schema extends Base
             ->column->id('id')->text('text')
             ->constraint->pk('id');
         
-        $this->table('spo')
+        $this->table('triple')
             ->column->id('id')->id('s')->id('p')->id('o')
             ->constraint->pk('id');
             
@@ -45,4 +46,18 @@ class Schema extends Base
             ->column->id('id')->uri('uri')
             ->constraint->pk('id');
      }
+     
+     public function loadCoreData($db)
+     {
+		$model = new Anagrom\Model($db,$this);
+		$opposite = $model->concept('is opposite of');
+		$model->triple(
+		    $model->concept('is concept of term'),
+		    $opposite,
+		    $model->concept('uses concept')
+		);
+		$language = $model->concept('in language');
+		$german = $model->concept('german');
+		$english = $model->concept('english'); 
+	 }
 }

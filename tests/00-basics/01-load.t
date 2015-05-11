@@ -29,3 +29,5 @@ use_ok('Siox\\Db\\Sql\\DefineConstraint');
 use_ok('Siox\\Db\\Table');
 use_ok('Siox\\Db\\Table\\Column');
 use_ok('Siox\\Db\\Table\\Row');
+
+use_ok('Siox\\Db\\Orm');

@@ -2,6 +2,8 @@
 
 namespace Siox\Db;
 
+use Noray\DefaultName;
+
 use Siox\Db\Table;
 
 use Siox\Db\Schema\ColumnFactory;
@@ -18,8 +20,13 @@ class Schema
     protected $namedTypes = array();
     protected $tables = array();
 
+    use DefaultName;
+
     public function __construct($name = '')
     {
+		if($name === '') {
+			$name = $this->_getDefaultName();
+		}
         $this->name = $name;
         $this->type = new TypeContainer($this,'');
         $this->typeFactory = new TypeFactory();
@@ -48,6 +55,11 @@ class Schema
     {
         return $this->typeFactory->get($name);
     }
+    
+    public function getName()
+    {
+		return $this->name;
+	}
     
     public function getType($name)
     {

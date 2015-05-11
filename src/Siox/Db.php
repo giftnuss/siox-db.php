@@ -92,7 +92,7 @@ class Db
     public function fetchColumn($sql,$args = array(),$col = 0)
     {
 		$adapter = $this->getConnection();
-	    if($sql instanceof Siox\Db\Sql) {
+	    if($sql instanceof Db\Sql) {
 		    $sql = $sql->toString();
 		}
 		$stmt = $adapter->prepare($sql);

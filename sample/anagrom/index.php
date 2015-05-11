@@ -9,14 +9,11 @@ $db = Siox\Db::factory(array(
     'driver' => 'dsn',
     'dsn' => "sqlite:$dbfile"
 ));
-$schema = new Anagrom\Schema();
 
-$tables = $db->info()->listTableNames();
-if(count($tables) == 0) {
-    $setup = new Siox\Db\Setup($db);
-    $setup->initSchema($schema);
-    $tables = $db->info()->listTableNames();
-}
+$setup = new Anagrom\Setup($db);
+$setup->init();
+
+$tables = $setup->getTables();
 
 header("Content-Type: text/html;charset=UTF-8");
 
@@ -45,7 +42,7 @@ input {
 
 </style>
 <div class="tables">
-<?php foreach($tables as $name) { echo "$name\n"; } ?>
+<?php foreach($tables as $table) { echo "{$table->getName()}\n"; } ?>
 </div>
 
 <div class="concept">
@@ -55,8 +52,8 @@ input {
     <div class="description">
     Ein Konzept ist ein Bezeichner für einen Term,
     um diesen eindeutig zu machen. Wenn es
-    den Bezeichner bereits gibt, wird eine Seite
-    angezeigt, die helfen soll, die Mehrdeutigkeit aufzulösen.
+    den Bezeichner bereits gibt, wird ein Formular
+    angezeigt, das helfen soll, die Mehrdeutigkeit aufzulösen.
     </div>
     </div>
     <input type="submit">

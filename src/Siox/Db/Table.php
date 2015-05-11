@@ -11,7 +11,6 @@ use Siox\Db\Table\Row;
 class Table
 {
     protected $name = null;
-    protected $type = null;
     protected $columns = array();
     protected $constraints = array();
     protected $comment = null;
