@@ -9,7 +9,7 @@ class Model
     protected $schema;
     protected $orm;
     
-    public __construct($db,$schema)
+    public function __construct($db,$schema)
     {
         $this->db = $db;
         $this->sql = $db->sql();
@@ -19,7 +19,7 @@ class Model
     
     public function concept($word)
     {
-		$this->sql->table($schema->getTable())
+		$table = $this->orm->table('concept');
 	}
 	
 	public function triple($s,$p,$o)

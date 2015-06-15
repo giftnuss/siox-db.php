@@ -2,7 +2,7 @@
     "name": "giftnuss/siox-db",
     "require": {
         "giftnuss/test.php": "@dev",
-	"giftnuss/noray.php": "dev-master"
+        "giftnuss/noray.php": "@dev"
     },
     "autoload": {
         "psr-0": {
