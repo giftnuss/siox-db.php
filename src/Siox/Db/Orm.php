@@ -3,6 +3,7 @@
 namespace Siox\Db;
 
 use Noray\AliasMap;
+use Siox\Db\Exception as DbException;
 
 class Orm
 {
@@ -24,6 +25,11 @@ class Orm
     
     public function addSchema($schema)
     {
-		
+		$name = $schema->getName();
+		if(isset($this->schemas[$name])) {
+			throw new DbException("Schema name $name is not unique.");
+		}
+		$this->schemas[$name] = $schema;
+		return $this;
 	}
 }

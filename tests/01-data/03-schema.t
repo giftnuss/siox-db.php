@@ -2,9 +2,10 @@
 
 require __DIR__ . '/../setup.php';
 
-plan(2);
+plan(3);
 
-$schema = new Siox\Db\Schema;
+$schema = new Siox\Db\Schema('test_schema');
+is($schema->getName(),'test_schema','name');
 
 isa_ok($schema->getType('varchar'),'Siox\Db\DataType\Varchar','type varchar');
 

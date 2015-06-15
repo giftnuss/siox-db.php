@@ -30,7 +30,8 @@ class CreateTable extends Base implements SqlInterface
 	{
 		$platform = $this->getPlatform();
 		$sql = 'CREATE TABLE ' . 
-		    $platform->quoteIdentifier( $this->table->getName() ) . " (\n    ";
+		    $platform->quoteIdentifier( $this->table->getTableName() ) . 
+		    " (\n    ";
 		    
 		$result = array();
 		foreach($this->table->getColumns() as $col) {

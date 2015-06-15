@@ -15,6 +15,7 @@ class Schema
     public $type;
 
     protected $name;
+    protected $prefix = '';
     protected $typeFactory;
     
     protected $namedTypes = array();
@@ -34,6 +35,12 @@ class Schema
     }
         
     protected function _construct() { }
+    
+    public function setPrefix($prefix)
+    {
+		$this->prefix = $prefix;
+		return $this;
+	}
 
     public function type($name = '')
     {

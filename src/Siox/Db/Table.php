@@ -10,6 +10,7 @@ use Siox\Db\Table\Row;
 
 class Table
 {
+	protected $prefix = '';
     protected $name = null;
     protected $columns = array();
     protected $constraints = array();
@@ -21,6 +22,12 @@ class Table
             $this->setName($name);
         }
     }
+
+    public function setPrefix($prefix)
+    {
+		$this->prefix = $prefix;
+		return $this;
+	}
 
     public function addColumn(ColumnInterface $column)
     {
@@ -71,6 +78,14 @@ class Table
     {
         return $this->name;
     }
+    
+    public function getTableName()
+	{
+		if(strlen($this->prefix)) {
+			return join('_',array($this->prefix,$this->getName()));
+		}
+		return $this->getName();
+	}
 
     public function setComment($comment)
     {
