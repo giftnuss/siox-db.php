@@ -9,8 +9,7 @@ class PlatformFactory extends AliasMap
     protected function _initMap()
     {
         $this->map = array(
-            'sqlite'    => 'Siox\Db\Platform\Sqlite'
+            'sqlite' => 'Siox\Db\Platform\Sqlite',
         );
     }
 }
-

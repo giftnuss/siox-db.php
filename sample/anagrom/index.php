@@ -1,13 +1,13 @@
 <?php
 
-require_once __DIR__ . '/../../vendor/autoload.php';
+require_once __DIR__.'/../../vendor/autoload.php';
 
-$dbfile = __DIR__ . '/data/anagrom.sqlite';
+$dbfile = __DIR__.'/data/anagrom.sqlite';
 
 #error_log('Es geht los...');
 $db = Siox\Db::factory(array(
     'driver' => 'dsn',
-    'dsn' => "sqlite:$dbfile"
+    'dsn' => "sqlite:$dbfile",
 ));
 
 $setup = new Anagrom\Setup($db);
@@ -15,7 +15,7 @@ $setup->init();
 
 $tables = $setup->getTables();
 
-header("Content-Type: text/html;charset=UTF-8");
+header('Content-Type: text/html;charset=UTF-8');
 
 ?>
 <!doctype html>
@@ -42,7 +42,9 @@ input {
 
 </style>
 <div class="tables">
-<?php foreach($tables as $table) { echo "{$table->getName()}\n"; } ?>
+<?php foreach ($tables as $table) {
+    echo "{$table->getName()}\n";
+} ?>
 </div>
 
 <div class="concept">

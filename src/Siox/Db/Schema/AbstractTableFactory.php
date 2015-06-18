@@ -9,25 +9,24 @@ class AbstractTableFactory
     protected $schema;
     protected $tableObj;
     protected $current;
-    
-    public function __construct($schema,$table)
+
+    public function __construct($schema, $table)
     {
         $this->tableObj = $table;
         $this->schema = $schema;
     }
-        
+
     public function __get($attr)
     {
-        if($attr == 'column') {
+        if ($attr == 'column') {
             return new ColumnFactory($this->schema, $this->tableObj);
+        } elseif ($attr == 'constraint') {
+            return new ConstraintFactory($this->schema, $this->tableObj);
+        } elseif ($attr == 'table') {
+            return  new TableFactory($this->schema, $this->tableObj);
         }
-        elseif($attr == 'constraint') {
-            return new ConstraintFactory($this->schema, $this->tableObj);   
-        }
-        elseif($attr == 'table') {
-			return  new TableFactory($this->schema, $this->tableObj);
-		}
-        return null;
+
+        return;
     }
 
     public function pk()
@@ -36,17 +35,18 @@ class AbstractTableFactory
         $pk = new PrimaryKey($columns);
         $this->tableObj->addConstraint($pk);
         $this->current = $pk;
+
         return $this;
     }
-    
+
     public function comment($comment)
     {
-		if(isset($this->current)) {
-	        $this->current->setComment($comment);		
-		}
-		else {
-			$this->tableObj->setComment($comment);
-		}
-		return $this;
-	}
+        if (isset($this->current)) {
+            $this->current->setComment($comment);
+        } else {
+            $this->tableObj->setComment($comment);
+        }
+
+        return $this;
+    }
 }

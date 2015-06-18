@@ -2,8 +2,6 @@
 
 namespace Siox\Db\Schema;
 
-use Siox\Db\Schema\Exception;
-
 class TypeContainer
 {
     protected $schema;
@@ -18,13 +16,14 @@ class TypeContainer
 
     public function __get($attr)
     {
-        if($class = $this->schema->getTypeClass($attr)) {
+        if ($class = $this->schema->getTypeClass($attr)) {
             $this->ddl = new $class();
+
             return $this->ddl;
         }
         throw new Exception("Unknown Typeclass $attr");
     }
-    
+
     public function getType()
     {
         return $this->ddl;
