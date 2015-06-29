@@ -2,7 +2,8 @@
     "name": "giftnuss/siox-db",
     "require": {
         "giftnuss/test.php": "@dev",
-        "giftnuss/noray.php": "@dev"
+        "giftnuss/noray.php": "@dev",
+        "corneltek/sqlbuilder": "~2"
     },
     "autoload": {
         "psr-0": {
