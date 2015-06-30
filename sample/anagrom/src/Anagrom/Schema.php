@@ -3,6 +3,7 @@
 namespace Anagrom;
 
 use Siox\Db\Schema as Base;
+
 class Schema extends Base
 {
     protected function _construct()

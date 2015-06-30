@@ -31,4 +31,23 @@ class Sql
 
         return $sql;
     }
+
+    public function update($table, $data)
+    {
+        $sql = $this->buildUpdate($table, $data);
+
+        return $sql->exec($data);
+    }
+
+    public function buildUpdate($table, $data)
+    {
+        $update = new Sql\Update($this);
+        if ($table instanceof Table) {
+            $update->setTable($table);
+        } else {
+            $update->setTablename($table);
+        }
+
+        return $update->build($data);
+    }
 }

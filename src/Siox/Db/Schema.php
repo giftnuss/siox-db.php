@@ -6,6 +6,7 @@ use Noray\DefaultName;
 use Siox\Db\Schema\ColumnFactory;
 use Siox\Db\Schema\TypeFactory;
 use Siox\Db\Schema\TypeContainer;
+use Siox\Db\Schema\DefaultTypes;
 
 class Schema
 {
@@ -97,5 +98,11 @@ class Schema
     public function getTable($name)
     {
         return $this->tables[$name];
+    }
+
+    public function withDefaultTypes()
+    {
+        $default = new DefaultTypes();
+        $default->defaultTypes($this);
     }
 }

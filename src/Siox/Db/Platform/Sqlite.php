@@ -31,7 +31,7 @@ class Sqlite extends Base
     {
         if ($type->has('size')) {
             if ($this->getPlatformTypename($type) == 'INTEGER') {
-                return null;
+                return;
             }
 
             return $type->size();
