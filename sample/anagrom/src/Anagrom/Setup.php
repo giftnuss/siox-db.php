@@ -28,6 +28,11 @@ class Setup
             $setup->initSchema($this->schema);
         }
     }
+    
+    public function getModel()
+    {
+		return new Model($this->db, $this->schema);
+	}
         
     public function getTables()
     {
