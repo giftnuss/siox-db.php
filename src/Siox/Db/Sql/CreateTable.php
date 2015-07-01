@@ -30,8 +30,10 @@ class CreateTable extends Base implements SqlInterface
     public function getSqlString()
     {
         $platform = $this->getPlatform();
+        $driver = $platform->getDriver();
+
         $sql = 'CREATE TABLE '.
-            $platform->quoteIdentifier($this->table->getTableName()).
+            $driver->quoteIdentifier($this->table->getTableName()).
             " (\n    ";
 
         $result = array();

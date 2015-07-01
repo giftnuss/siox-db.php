@@ -31,9 +31,9 @@ class Setup
 
     public function getModel()
     {
-		return new Model($this->db, $this->schema);
-	}
-        
+        return new Model($this->db, $this->schema);
+    }
+
     public function getTables()
     {
         return $this->schema->getTables();

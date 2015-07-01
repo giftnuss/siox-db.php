@@ -13,17 +13,20 @@ class DefineColumn extends Base implements SqlInterface
 
     public function getSqlString()
     {
+        $platform = $this->getPlatform();
+        $driver = $platform->getDriver();
+
         $name = $this->column->getName();
         $type = $this->column->getType();
         $result = array(
-            $this->getPlatform()->quoteIdentifier($name),
-            $this->getPlatform()->getTypeString($type),
+            $driver->quoteIdentifier($name),
+            $platform->getTypeString($type),
         );
 
         $return = implode(' ', $result);
         $comment = $this->column->getComment();
         if (isset($comment)) {
-            $this->getPlatform()->addColumnComment($return, $comment);
+            $platform->addColumnComment($return, $comment);
         }
 
         return $return;

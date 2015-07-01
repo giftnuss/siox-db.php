@@ -2,13 +2,22 @@
 
 namespace Siox\Db\Platform;
 
-class Base
+abstract class Base
 {
     protected $db;
+    protected $driver;
 
     public function __construct($db)
     {
         $this->db = $db;
+        $this->resetDriver();
+    }
+
+    abstract protected function resetDriver();
+
+    public function getDriver()
+    {
+        return $this->driver;
     }
 
     public function listTableNames()
@@ -45,8 +54,9 @@ class Base
 
     public function quoteIdentifierList($identifierList)
     {
+        $driver = $this->getDriver();
         foreach ($identifierList as $col) {
-            $list[] = $this->quoteIdentifier($col);
+            $list[] = $driver->quoteIdentifier($col);
         }
 
         return implode(',', $list);

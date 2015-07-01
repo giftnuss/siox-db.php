@@ -17,12 +17,12 @@ class Db
     public static $default_charset = 'UTF8';
 
     protected $cinfo = array();
-    
+
     public function __construct()
     {
-		$this->info = new Db\Information($this);
-		$this->orm = new Db\Orm($this);
-	}
+        $this->info = new Db\Information($this);
+        $this->orm = new Db\Orm($this);
+    }
 
     public static function factory(array $args)
     {
@@ -55,8 +55,7 @@ class Db
             $this->$method();
             // sql is not lazy so it is initialized after connect
             $this->sql = new Db\Sql($this);
-        }
-        catch(Exception $e) {
+        } catch (Exception $e) {
             throw new DbException($e->getMessage());
         }
     }
@@ -120,26 +119,26 @@ class Db
         return $result;
     }
 
-	public function sql()
-	{
-		return $this->sql;
-	}
+    public function sql()
+    {
+        return $this->sql;
+    }
 
     public function info()
     {
         return $this->info;
     }
-    
+
     public function orm(Db\Schema $schema = null)
     {
-		if(null !== $schema) {
-			try {
-		        $this->orm->addSchema($schema);
-		    }
-		    catch(DbException $exp) {
-				// ignore multiple !additions
-			}	
-		}
-		return $this->orm;
-	}
+        if (null !== $schema) {
+            try {
+                $this->orm->addSchema($schema);
+            } catch (DbException $exp) {
+                // ignore multiple !additions
+            }
+        }
+
+        return $this->orm;
+    }
 }

@@ -4,6 +4,11 @@ namespace Siox\Db\Platform;
 
 class Sqlite extends Base
 {
+    protected function resetDriver()
+    {
+        $this->driver = new Driver\Sqlite();
+    }
+
     public function getPlatformTypename($type)
     {
         $typename = $type->name();
@@ -45,16 +50,6 @@ class Sqlite extends Base
             '"name" NOT LIKE \'sqlite_%\'';
 
         return $this->db->fetchColumn($sql);
-    }
-
-    public function getQuoteIdentifierSymbol()
-    {
-        return '"';
-    }
-
-    public function quoteIdentifier($identifier)
-    {
-        return '"'.str_replace('"', '\\'.'"', $identifier).'"';
     }
 
     public function quoteIdentifierChain($identifierChain)

@@ -33,11 +33,11 @@ class Orm
 
         return $this;
     }
-	
-	public function table($get)
-	{
-		if($table = $this->tables->has($get)) {
-			return $this->get($get);
-		}
-	}
+
+    public function table($get)
+    {
+        if ($table = $this->tables->has($get)) {
+            return $this->get($get);
+        }
+    }
 }
