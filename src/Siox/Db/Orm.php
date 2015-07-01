@@ -32,4 +32,11 @@ class Orm
 		$this->schemas[$name] = $schema;
 		return $this;
 	}
+	
+	public function table($get)
+	{
+		if($table = $this->tables->has($get)) {
+			return $this->get($get);
+		}
+	}
 }
