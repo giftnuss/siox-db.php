@@ -10,9 +10,9 @@ class Base
     {
         $this->sql = $sql;
     }
-    
+
     public function getPlatform()
     {
-		return $this->sql->getPlatform();
-	}
+        return $this->sql->getPlatform();
+    }
 }

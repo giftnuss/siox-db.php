@@ -4,5 +4,5 @@ namespace Siox\Db\DataType;
 
 class Time extends Base
 {
-     protected $name = 'TIME';
+    protected $name = 'TIME';
 }

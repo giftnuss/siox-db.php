@@ -17,3 +17,5 @@ use_ok('\Siox\Db\DataType\Money');
 use_ok('\Siox\Db\DataType\Text');
 use_ok('\Siox\Db\DataType\Time');
 use_ok('\Siox\Db\DataType\Varchar');
+
+use_ok('\Siox\Db\Schema\DefaultTypes');

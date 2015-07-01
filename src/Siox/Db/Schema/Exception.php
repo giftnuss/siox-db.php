@@ -6,5 +6,4 @@ use Siox\Db\Exception as Base;
 
 class Exception extends Base
 {
-
 }

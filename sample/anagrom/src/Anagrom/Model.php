@@ -8,22 +8,21 @@ class Model
     protected $sql;
     protected $schema;
     protected $orm;
-    
-    public function __construct($db,$schema)
+
+    public function __construct($db, $schema)
     {
         $this->db = $db;
         $this->sql = $db->sql();
         $this->schema = $schema;
         $this->orm = $db->orm($schema);
     }
-    
+
     public function concept($word)
     {
-		$table = $this->orm->table('concept');
-	}
-	
-	public function triple($s,$p,$o)
-	{
-		
-	}
+        $table = $this->orm->table('concept');
+    }
+
+    public function triple($s, $p, $o)
+    {
+    }
 }

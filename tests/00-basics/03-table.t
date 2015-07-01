@@ -14,3 +14,4 @@ $column = new \Siox\Db\Table\Column('one');
 
 $table->addColumn($column);
 is(count($table->getColumns()),1,"one");
+is_deeply($table->getColumnNames(),array('one'),'method getColumnNames');

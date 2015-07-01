@@ -2,15 +2,12 @@
 
 namespace Siox\Db;
 
-use Siox\Db\Exception;
-
 use Siox\Db\Table\Column;
 use Siox\Db\Table\ColumnInterface;
-use Siox\Db\Table\Row;
 
 class Table
 {
-	protected $prefix = '';
+    protected $prefix = '';
     protected $name = null;
     protected $columns = array();
     protected $constraints = array();
@@ -25,33 +22,35 @@ class Table
 
     public function setPrefix($prefix)
     {
-		$this->prefix = $prefix;
-		return $this;
-	}
+        $this->prefix = $prefix;
+
+        return $this;
+    }
 
     public function addColumn(ColumnInterface $column)
     {
         $name = $column->getName();
-        if(isset($this->columns[$name])) {
+        if (isset($this->columns[$name])) {
             throw new Exception("Column $name is already defined");
         }
         $this->columns[$name] = $column;
+
         return $this;
     }
 
     public function addConstraint($constraint)
     {
         $this->constraints[] = $constraint;
+
         return $this;
     }
 
-
     public function setColumns(array $columns)
     {
-		$this->columns = array();
-		foreach($columns as $col) {
-			$this->addColumn($column);
-		}
+        $this->columns = array();
+        foreach ($columns as $col) {
+            $this->addColumn($column);
+        }
     }
 
     public function getColumns()
@@ -78,28 +77,49 @@ class Table
     {
         return $this->name;
     }
-    
+
     public function getTableName()
-	{
-		if(strlen($this->prefix)) {
-			return join('_',array($this->prefix,$this->getName()));
-		}
-		return $this->getName();
-	}
+    {
+        if (strlen($this->prefix)) {
+            return implode('_', array($this->prefix, $this->getName()));
+        }
+
+        return $this->getName();
+    }
 
     public function setComment($comment)
     {
-		$this->comment = $comment;
-		return $this;
-	}
+        $this->comment = $comment;
 
-	public function getComment()
-	{
-		return $this->comment;
-	}
+        return $this;
+    }
+
+    public function getComment()
+    {
+        return $this->comment;
+    }
 
     public function getColumnNames()
     {
-        #; U
+        return array_keys($this->columns);
+    }
+
+    // -----------------------------------------------------------------
+    public function search()
+    {
+    }
+
+    // zf1 - ein selct objekt dauert noch
+    // zf2 - suche
+    public function select($where = null)
+    {
+        $select = $this->sql->select();
+        if ($where instanceof \Closure) {
+            $where($select);
+        } elseif ($where !== null) {
+            $select->where($where);
+        }
+
+        return $this->selectWith($select);
     }
 }
