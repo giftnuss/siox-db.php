@@ -5,18 +5,24 @@ namespace Siox;
 use PDO;
 use Exception;
 use Siox\Db\Exception as DbException;
-use Siox\Db\Information;
 
 class Db
 {
     protected $adapter;
     protected $sql;
     protected $info;
+    protected $orm;
 
     public static $default_driver = 'mysql';
     public static $default_charset = 'UTF8';
 
     protected $cinfo = array();
+    
+    public function __construct()
+    {
+		$this->info = new Db\Information($this);
+		$this->orm = new Db\Orm($this);
+	}
 
     public static function factory(array $args)
     {
@@ -46,8 +52,11 @@ class Db
             throw new DbException("Driver '{$this->cinfo['driver']} is not implemented.");
         }
         try {
-            return $this->$method();
-        } catch (Exception $e) {
+            $this->$method();
+            // sql is not lazy so it is initialized after connect
+            $this->sql = new Db\Sql($this);
+        }
+        catch(Exception $e) {
             throw new DbException($e->getMessage());
         }
     }
@@ -111,21 +120,26 @@ class Db
         return $result;
     }
 
-    public function sql()
-    {
-        if (empty($this->sql)) {
-            $this->sql = new Db\Sql($this);
-        }
-
-        return $this->sql;
-    }
+	public function sql()
+	{
+		return $this->sql;
+	}
 
     public function info()
     {
-        if (empty($this->info)) {
-            $this->info = new Information($this);
-        }
-
         return $this->info;
     }
+    
+    public function orm(Db\Schema $schema = null)
+    {
+		if(null !== $schema) {
+			try {
+		        $this->orm->addSchema($schema);
+		    }
+		    catch(DbException $exp) {
+				// ignore multiple !additions
+			}	
+		}
+		return $this->orm;
+	}
 }
