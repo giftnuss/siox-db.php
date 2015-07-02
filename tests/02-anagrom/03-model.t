@@ -18,4 +18,4 @@ $model = $setup->getModel();
 
 $topic = $model->concept('topic');
 
-isa_ok($model,'Anagrom\\Model');
+isa_ok($topic,'Anagrom\\Model');

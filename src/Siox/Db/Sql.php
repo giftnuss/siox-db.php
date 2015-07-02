@@ -26,26 +26,46 @@ class Sql
 
     public function createTable($table)
     {
+        return $this->buildCreateTable($table)->exec();
+    }
+
+    public function insert($table, $data)
+    {
+        $sql = $this->buildInsert($table, $data)->exec();
+    }
+
+    public function update($table, $data, $condition = null)
+    {
+        return $this->buildUpdate($table, $data, $condition)->exec();
+    }
+
+    public function buildCreateTable($table)
+    {
         $sql = new Sql\CreateTable($this);
         $sql->setTable($table);
 
         return $sql;
     }
 
-    public function update($table, $data)
+    public function buildInsert($table, $data)
     {
-        $sql = $this->buildUpdate($table, $data);
+        $sql = new Sql\Insert($this);
+        if ($table instanceof Table) {
+            $sql->setTable($table);
+        } else {
+            $sql->setTableByName($table);
+        }
 
-        return $sql->exec($data);
+        return $sql->build($data);
     }
 
-    public function buildUpdate($table, $data)
+    public function buildUpdate($table, $data, $condition = null)
     {
         $update = new Sql\Update($this);
         if ($table instanceof Table) {
             $update->setTable($table);
         } else {
-            $update->setTablename($table);
+            $update->setTableByName($table);
         }
 
         return $update->build($data);

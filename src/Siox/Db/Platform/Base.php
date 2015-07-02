@@ -55,6 +55,7 @@ abstract class Base
     public function quoteIdentifierList($identifierList)
     {
         $driver = $this->getDriver();
+        $list = array();
         foreach ($identifierList as $col) {
             $list[] = $driver->quoteIdentifier($col);
         }

@@ -29,7 +29,6 @@ $schema->table('test_types')->column
     ->time('time')
     ->varchar('varchar')->comment('last column');
 
-
 $schema->table('id2')
        ->column->int('id')->comment('id column')
        ->text('name')
@@ -41,7 +40,7 @@ $schema->table('id2')
 $table = $schema->getTable('test_types');
 isa_ok($table,'Siox\\Db\\Table','class table');
 
-$create = $db->sql()->createTable($table);
+$create = $db->sql()->buildCreateTable($table);
 
 diag($create->getSqlString());
 
@@ -51,7 +50,7 @@ $inform = new \Siox\Db\Information($db);
 is_deeply($inform->listTableNames(),
     array('test_types'),'one table');
 
-$create = $db->sql()->createTable($schema->getTable('id2'));
+$create = $db->sql()->buildCreateTable($schema->getTable('id2'));
 
 diag($create->getSqlString());
 ok($create->exec(),'exec');

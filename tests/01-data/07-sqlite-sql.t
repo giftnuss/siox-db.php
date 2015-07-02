@@ -14,14 +14,23 @@ $sql = $db->sql();
 isa_ok($db, 'Siox\\Db');
 isa_ok($sql, 'Siox\\Db\\Sql');
 
-$schema = new Siox\Db\Schema\Defaults();
+$schema = new Siox\Db\Schema();
+$defaults = new Siox\Db\Schema\DefaultTypes;
+$defaults->defaultTypes($schema);
 
 $schema->table('test_sql')->column
-    ->int('id')->pk()
-    ->varchar('name')->size(32);
+    ->int('id')
+    ->word('name')
+    ->constraint->pk('id');
     
-$create = $sql->createTable($schema->getTable('test_sql'));
+$create = $sql->buildCreateTable($schema->getTable('test_sql'));
 isa_ok($create, 'Siox\\Db\\Sql\\CreateTable');
 
-diag($create->toSqlString());
-ok($create->exec(),'exec');
+diag($create->getSqlString());
+ok($create->exec(),'create table exec');
+
+$insert = $sql->buildInsert('test_sql',array('name' => 'Wolf'));
+isa_ok($insert, 'Siox\\Db\\Sql\\Insert');
+
+diag($insert->getSqlString());
+ok($insert->exec(),'insert exec');
