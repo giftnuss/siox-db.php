@@ -7,6 +7,7 @@ class Sqlite extends Base
     protected function resetDriver()
     {
         $this->driver = new Driver\Sqlite();
+        $this->driver->setNamedParamMarker();
     }
 
     public function getPlatformTypename($type)

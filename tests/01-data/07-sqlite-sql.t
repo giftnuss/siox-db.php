@@ -32,5 +32,24 @@ ok($create->exec(),'create table exec');
 $insert = $sql->buildInsert('test_sql',array('name' => 'Wolf'));
 isa_ok($insert, 'Siox\\Db\\Sql\\Insert');
 
+#print_r($insert);
+
 diag($insert->getSqlString());
 ok($insert->exec(),'insert exec');
+
+$names = $db->fetchColumn("SELECT * FROM test_sql WHERE 1=1",array(),1);
+is_deeply($names,array('Wolf'),'name inserted :)');
+
+$batchdata = array(
+     array('Chris'),
+     array('Mona'),
+     array('Louisa')
+);
+
+$batch = $sql->batchInsert('test_sql',['name'],$batchdata);
+
+$expect = array('Wolf');
+foreach($batchdata as $r) { $expect[] = $r[0]; }
+
+$names = $db->fetchColumn("SELECT * FROM test_sql WHERE 1=1",array(),1);
+is_deeply($names,$expect,'batch insert :)');

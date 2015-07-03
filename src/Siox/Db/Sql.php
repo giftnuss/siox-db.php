@@ -24,6 +24,14 @@ class Sql
         return $this->platform;
     }
 
+    public function doQuery($sql)
+    {
+        $adapter = $this->getDb()->getConnection();
+        $stmt = $adapter->prepare($sql->getSqlString());
+
+        return $stmt->execute($sql->getBindArgs());
+    }
+
     public function createTable($table)
     {
         return $this->buildCreateTable($table)->exec();
@@ -31,7 +39,22 @@ class Sql
 
     public function insert($table, $data)
     {
-        $sql = $this->buildInsert($table, $data)->exec();
+        return $this->buildInsert($table, $data)->exec();
+    }
+
+    public function batchInsert($table, $cols, $rows)
+    {
+        $first = reset($rows);
+        $build = array_combine($cols, $first);
+        $insert = $this->buildInsert($table, $build);
+        $adapter = $this->getDb()->getConnection();
+
+        $stmt = $adapter->prepare($insert->getSqlString());
+        foreach ($rows as $row) {
+            $stmt->execute($row);
+        }
+
+        return true;
     }
 
     public function update($table, $data, $condition = null)
