@@ -1,0 +1,4 @@
+#!/bin/bash
+
+ php -B 'include "./vendor/autoload.php;' -S 0:8055 sample/anagrom/index.php
+

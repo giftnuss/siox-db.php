@@ -19,7 +19,11 @@ class Model
 
     public function concept($word)
     {
-        $table = $this->orm->table('concept');
+		$it = $this->orm->table('id');
+        $ct = $this->orm->table('concept');
+        $ct->is_not($word,function () use ($it,$ct) {
+			
+		});
     }
 
     public function triple($s, $p, $o)
