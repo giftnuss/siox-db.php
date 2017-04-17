@@ -7,7 +7,7 @@ class Model
     protected $db;
     protected $sql;
     protected $schema;
-    protected $orm;
+    public $orm;
 
     public function __construct($db, $schema)
     {
@@ -19,9 +19,10 @@ class Model
 
     public function concept($word)
     {
-		$it = $this->orm->table('id');
+        $it = $this->orm->table('id');
         $ct = $this->orm->table('concept');
-        $ct->is_not($word,function () use ($it,$ct) {
+        $qr = $this->orm->query($ct);
+        $qr->if_not(array('word' => $word),function () use ($it,$ct) {
 			
 		});
     }

@@ -2,7 +2,7 @@
 
 namespace Siox\Db\DataType;
 
-class Float extends Base
+class FloatingPoint extends Base
 {
     protected $name = 'FLOAT';
 }

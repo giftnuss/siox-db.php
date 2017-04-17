@@ -14,7 +14,7 @@ class TypeFactory extends AliasMap
             'char' => 'Siox\Db\DataType\Char',
             'date' => 'Siox\Db\DataType\Date',
             'decimal' => 'Siox\Db\DataType\Decimal',
-            'float' => 'Siox\Db\DataType\Float',
+            'float' => 'Siox\Db\DataType\FloatingPoint',
             'integer' => 'Siox\Db\DataType\Integer',
             'money' => 'Siox\Db\DataType\Money',
             'text' => 'Siox\Db\DataType\Text',

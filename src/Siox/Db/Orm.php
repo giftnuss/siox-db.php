@@ -4,6 +4,7 @@ namespace Siox\Db;
 
 use Noray\AliasMap;
 use Siox\Db\Exception as DbException;
+use Siox\Db\Table;
 
 class Orm
 {
@@ -37,7 +38,27 @@ class Orm
     public function table($get)
     {
         if ($table = $this->tables->has($get)) {
-            return $this->get($get);
+            return $this->tables->get($get);
         }
+        foreach($this->schemas as $schema) {
+            if($table = $schema->getTable($get)) {
+                $this->tables->register($get,$table);
+                return $table;
+            }
+        }
+    }
+    
+    public function query($arg)
+    {
+        if($arg instanceof Siox\Db\Table) {
+            $table = $arg;
+        }
+        else {
+            $table = $this->table($arg);
+            if(!$arg) {
+                throw new DbException("Table $arg is unknown.");
+            }
+        }
+        return new Table\Query($this->db,$table);
     }
 }

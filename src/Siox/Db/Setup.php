@@ -15,7 +15,7 @@ class Setup
     {
         $db = $this->db;
         foreach ($schema->getTables() as $table) {
-            $db->sql()->createTable($table)->exec();
+            $db->sql()->createTable($table);
         }
     }
 }

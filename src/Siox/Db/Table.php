@@ -103,23 +103,4 @@ class Table
     {
         return array_keys($this->columns);
     }
-
-    // -----------------------------------------------------------------
-    public function search()
-    {
-    }
-
-    // zf1 - ein selct objekt dauert noch
-    // zf2 - suche
-    public function select($where = null)
-    {
-        $select = $this->sql->select();
-        if ($where instanceof \Closure) {
-            $where($select);
-        } elseif ($where !== null) {
-            $select->where($where);
-        }
-
-        return $this->selectWith($select);
-    }
 }

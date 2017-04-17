@@ -93,4 +93,19 @@ class Sql
 
         return $update->build($data);
     }
+    
+    public function select($table,array $columns = null)
+    {
+		$sql = new Sql\Select($this);
+        if ($table instanceof Table) {
+            $sql->setTable($table);
+        } else {
+            $sql->setTableByName($table);
+        }
+        if($columns !== null) {
+			$sql->setSelection($columns);
+		}
+        return $sql;
+    }
+
 }

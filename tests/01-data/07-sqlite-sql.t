@@ -53,3 +53,13 @@ foreach($batchdata as $r) { $expect[] = $r[0]; }
 
 $names = $db->fetchColumn("SELECT * FROM test_sql WHERE 1=1",array(),1);
 is_deeply($names,$expect,'batch insert :)');
+
+$select = $sql->select('test_sql');
+isa_ok($select, 'Siox\\Db\\Sql\\Select');
+
+$select->where()->like('name','Wolf');
+
+diag($select->getSqlString());
+
+
+

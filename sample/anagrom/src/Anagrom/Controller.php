@@ -9,9 +9,9 @@ class Controller
     
     public function __construct($model)
     {
-	    $this->model = $model;
-	    $this->method = $_SERVER['REQUEST_METHOD'];
-	}
+        $this->model = $model;
+        $this->method = $_SERVER['REQUEST_METHOD'];
+    }
 	
 	
 }
