@@ -2,6 +2,9 @@
 
 namespace Siox\Db\Sql;
 
+use Exception as CoreException;
+use Siox\Db\Sql\Exception as SqlException;
+
 use SQLBuilder\Bind;
 
 trait QueryTrait

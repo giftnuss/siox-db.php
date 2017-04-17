@@ -23,8 +23,14 @@ class Sql
     {
         return $this->platform;
     }
+    
+    public function lastInsertId($sequence)
+    {
+		$adapter = $this->getDb()->getConnection();
+	    return $adapter->lastInsertId($sequence);
+	}
 
-    public function doQuery($sql)
+    public function doQuery(Sql\SqlInterface $sql, &$stmt=null)
     {
         $adapter = $this->getDb()->getConnection();
         $stmt = $adapter->prepare($sql->getSqlString());

@@ -9,7 +9,7 @@ class ColumnFactory extends AbstractTableFactory
     public function __call($type, $args)
     {
         if ($typeObj = $this->schema->getType($type)) {
-            $column = new Column($this->table);
+            $column = new Column($this->tableObj);
             $column->setName($args[0]);
             $column->setType($typeObj);
             $this->tableObj->addColumn($column);

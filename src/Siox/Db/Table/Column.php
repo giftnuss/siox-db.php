@@ -2,6 +2,8 @@
 
 namespace Siox\Db\Table;
 
+use Siox\Db\Table;
+
 class Column implements ColumnInterface
 {
     protected $table;
@@ -10,7 +12,7 @@ class Column implements ColumnInterface
     protected $type;
     protected $comment;
 
-    public function __construct($table, $name = null)
+    public function __construct(Table $table, $name = null)
     {
         $this->table = $table;
         if (isset($name)) {

@@ -3,6 +3,8 @@
 namespace Siox\Db\Schema;
 
 use Siox\Db\Constraint\PrimaryKey;
+use Siox\Db\Schema;
+use Siox\Db\Table;
 
 class AbstractTableFactory
 {
@@ -10,7 +12,7 @@ class AbstractTableFactory
     protected $tableObj;
     protected $current;
 
-    public function __construct($schema, $table)
+    public function __construct(Schema $schema, Table $table)
     {
         $this->tableObj = $table;
         $this->schema = $schema;

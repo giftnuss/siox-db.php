@@ -26,6 +26,11 @@ class Select extends Base implements SqlInterface
         $this->selection = $sel;
         return $this;
     }
+
+    public function getBindArgs()
+    {
+        return $this->args->getArgs();
+    }
    
     public function getSqlString()
     {

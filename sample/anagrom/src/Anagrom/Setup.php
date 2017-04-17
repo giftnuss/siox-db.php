@@ -26,6 +26,7 @@ class Setup
         if (count($tables) == 0) {
             $setup = new DbSetup($this->db);
             $setup->initSchema($this->schema);
+            $this->schema->loadCoreData($this->db);
         }
     }
 

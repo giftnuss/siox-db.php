@@ -2,7 +2,7 @@
 
 require __DIR__ . '/../setup.php';
 
-plan(3);
+plan(4);
 
 $db = Siox\Db::factory(array(
   'driver' => 'dsn',
@@ -21,4 +21,5 @@ isa_ok($model->orm->table('concept'),'Siox\\Db\\Table','table concept');
 
 $topic = $model->concept('topic');
 
-isa_ok($topic,'Anagrom\\Model');
+# is this wanted?
+isa_ok($topic,'Anagrom\\Model',"return model");

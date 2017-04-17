@@ -82,6 +82,7 @@ class Db
             $this->cinfo['password'],
             $this->cinfo['options']
         );
+        $this->adapter->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 
     protected function _connect_mysql()
@@ -95,7 +96,6 @@ class Db
 
         $this->cinfo['dsn'] = 'mysql:'.implode(';', $data);
         $this->_connect_dsn();
-        $this->adapter->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 
     public function exec($sql)

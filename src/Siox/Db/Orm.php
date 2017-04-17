@@ -12,7 +12,7 @@ class Orm
     protected $schemas = array();
     protected $tables;
 
-    public function __construct($db, $schemas = array())
+    public function __construct(\Siox\Db $db, $schemas = array())
     {
         $this->db = $db;
         $this->tables = new AliasMap();
@@ -24,7 +24,7 @@ class Orm
         }
     }
 
-    public function addSchema($schema)
+    public function addSchema(\Siox\Db\Schema $schema)
     {
         $name = $schema->getName();
         if (isset($this->schemas[$name])) {
@@ -35,7 +35,7 @@ class Orm
         return $this;
     }
 
-    public function table($get)
+    public function table(string $get)
     {
         if ($table = $this->tables->has($get)) {
             return $this->tables->get($get);
@@ -50,7 +50,7 @@ class Orm
     
     public function query($arg)
     {
-        if($arg instanceof Siox\Db\Table) {
+        if($arg instanceof Table) {
             $table = $arg;
         }
         else {

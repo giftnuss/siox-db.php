@@ -48,7 +48,7 @@ class Schema extends Base
 
     public function loadCoreData($db)
     {
-        $model = new Anagrom\Model($db, $this);
+        $model = new Model($db, $this);
         $opposite = $model->concept('is opposite of');
         $model->triple(
             $model->concept('is concept of term'),

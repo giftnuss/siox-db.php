@@ -22,12 +22,17 @@ class Model
         $it = $this->orm->table('id');
         $ct = $this->orm->table('concept');
         $qr = $this->orm->query($ct);
-        $qr->if_not(array('word' => $word),function () use ($it,$ct) {
-			
+        $qr->if_not(array('concept' => $word),function ($sql,$table) 
+            use ($it,$ct,$word) {
+			$sql->insert($it,array('id' => null));
+			$id = $sql->lastInsertId('id');
+			$sql->insert($ct,array('id' => $id,'concept' => $word));
 		});
+		return $this;
     }
 
     public function triple($s, $p, $o)
     {
+		# ->column->id('id')->id('s')->id('p')->id('o')
     }
 }
