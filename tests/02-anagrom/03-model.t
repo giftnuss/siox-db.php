@@ -22,4 +22,4 @@ isa_ok($model->orm->table('concept'),'Siox\\Db\\Table','table concept');
 $topic = $model->concept('topic');
 
 # is this wanted?
-isa_ok($topic,'Anagrom\\Model',"return model");
+ok($topic > 0,"return id");

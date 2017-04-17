@@ -33,7 +33,7 @@ class Query
         }
     }
     
-    public function if_not(array $args,callable $func)
+    public function if_not(array $args,callable $func,callable $else=null)
     {
         $select = $this->sql->select($this->table);
         
@@ -42,7 +42,10 @@ class Query
         }
         if($this->sql->doQuery($select,$cursor)) {
             if($row = $cursor->fetch(\PDO::FETCH_NAMED)) {
-                $cursor->closeCursor();    
+                if($else !== null) {
+                    $else($row);
+                }
+                $cursor->closeCursor();
             }
             else {
                 $func($this->sql,$this->table);

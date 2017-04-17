@@ -24,7 +24,7 @@ class Sql
         return $this->platform;
     }
     
-    public function lastInsertId($sequence)
+    public function lastInsertId(string $sequence=null)
     {
 		$adapter = $this->getDb()->getConnection();
 	    return $adapter->lastInsertId($sequence);

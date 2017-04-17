@@ -19,20 +19,35 @@ class Model
 
     public function concept($word)
     {
-        $it = $this->orm->table('id');
         $ct = $this->orm->table('concept');
         $qr = $this->orm->query($ct);
+        $id = null;
+        $it = $this->orm->table('id');
         $qr->if_not(array('concept' => $word),function ($sql,$table) 
-            use ($it,$ct,$word) {
+            use ($it,$ct,$word,&$id) {
 			$sql->insert($it,array('id' => null));
 			$id = $sql->lastInsertId('id');
 			$sql->insert($ct,array('id' => $id,'concept' => $word));
+		}, function ($row) use (&$id) {
+			$id = $row['id'];
 		});
-		return $this;
+		return $id;
     }
 
-    public function triple($s, $p, $o)
+    public function triple(int $s,int $p,int $o)
     {
-		# ->column->id('id')->id('s')->id('p')->id('o')
+		$tr = $this->orm->table('triple');
+        $it = $this->orm->table('id');
+		$qr = $this->orm->query($tr);
+        $id = null;
+        $qr->if_not(array('s' => $s,'p' => $p,'o' => $o),
+           function ($sql,$table) use ($tr,$it,&$id,$s,$p,$o) {
+			  $sql->insert($it,array('id' => null));
+			  $id = $sql->lastInsertId('id');
+			  $sql->insert($tr,array('id' => $id,'s' => $s,'p' => $p,'o' => $o));
+		}, function ($row) use (&$id) {
+			$id = $row['id'];
+		});
+		return $id;
     }
 }
