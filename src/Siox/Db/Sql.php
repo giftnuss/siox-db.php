@@ -67,6 +67,20 @@ class Sql
     {
         return $this->buildUpdate($table, $data, $condition)->exec();
     }
+    
+    public function countRows($table)
+    {
+		$sql = new Sql\CountRows($this);
+		$sql->setTable($table);
+		$sql->build();
+		
+        $adapter = $this->getDb()->getConnection();
+        $stmt = $adapter->prepare($sql->getSqlString());
+        $stmt->execute();
+        if($row = $stmt->fetch(\PDO::FETCH_NAMED)) {
+			return $row['cnt'];
+		}
+	}
 
     public function buildCreateTable($table)
     {

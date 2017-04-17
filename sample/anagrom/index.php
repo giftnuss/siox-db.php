@@ -19,6 +19,7 @@ $tables = $setup->getTables();
 header('Content-Type: text/html;charset=UTF-8');
 
 $controller = new Anagrom\Controller($setup->getModel());
+$controller->handleRequest();
 
 ?>
 <!doctype html>
@@ -53,6 +54,7 @@ input, label { margin: 0.5ex 0; }
 <div class="tables">
 <?php foreach ($tables as $table) {
     echo "{$table->getName()}\n";
+    echo $db->sql()->countRows($table);
 } ?>
 </div>
 

@@ -13,5 +13,12 @@ class Controller
         $this->method = $_SERVER['REQUEST_METHOD'];
     }
 	
-	
+    public function handleRequest()
+    {
+        $do = $_GET['s'] . "_" . $this->method;
+        $do = str_replace('-','_',$do);
+        if(method_exists($this,$do)) {
+            $this->$do();
+        }
+    }
 }
