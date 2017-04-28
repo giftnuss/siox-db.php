@@ -60,6 +60,15 @@ class Db
         }
     }
 
+    public function disconnect()
+    {
+        $con = $this->getConnection();
+        if($con instanceof PDO) {
+            unset($this->adapter);
+        }
+        //->disconnect();
+    }
+
     public function getConnection()
     {
         return $this->adapter;

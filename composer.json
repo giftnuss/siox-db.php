@@ -5,6 +5,9 @@
         "giftnuss/noray.php": "@dev",
         "corneltek/sqlbuilder": "~2"
     },
+    "require-dev": {
+        "phpunit/phpunit": "4.8.*"
+    },
     "autoload": {
         "psr-0": {
             "Siox\\": "src/"

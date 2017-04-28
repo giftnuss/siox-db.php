@@ -2,7 +2,7 @@
 
 require __DIR__ . '/../setup.php';
 
-plan(4);
+plan(5);
 
 $db = Siox\Db::factory(array(
   'driver' => 'dsn',
@@ -23,3 +23,6 @@ $topic = $model->concept('topic');
 
 # is this wanted?
 ok($topic > 0,"return id");
+
+ok($db->disconnect());
+

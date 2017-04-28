@@ -12,7 +12,6 @@ $db = Siox\Db::factory(array(
 
 $platform = $db->sql()->getPlatform();
 
-is($platform->getQuoteIdentifierSymbol(),'"','quote identifier symbol');
-is($platform->quoteIdentifier('name'),'"name"','sample');
+is($platform->getDriver()->quoteIdentifier('test\'me'),'`test\'me`','quote identifier');
 is($platform->quoteIdentifierChain(array('schema','table','name')),
     '"schema"."table"."name"','identifier chain');

@@ -2,7 +2,7 @@
 
 require __DIR__ . '/../setup.php';
 
-plan(9);
+plan(10);
 
 $db = Siox\Db::factory(array(
   'driver' => 'dsn',
@@ -17,9 +17,9 @@ $setup->init();
 $tables = $setup->getTables();
 
 foreach($tables as $tab) {
-	$name = $tab->getName();
-	is($name,$tab->getTableName(),"no prefix for table $name");
-	$names[] = $name;
+    $name = $tab->getName();
+    is($name,$tab->getTableName(),"no prefix for table $name");
+    $names[] = $name;
 }
 sort($names);
 $expect = array(
@@ -33,4 +33,6 @@ $expect = array(
   'triple'
 );
 is_deeply($names,$expect,'expected table names');
+
+ok($db->disconnect());
 

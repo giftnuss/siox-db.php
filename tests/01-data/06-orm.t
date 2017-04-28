@@ -75,3 +75,5 @@ $orm->query('test_sql')->search(array('name' => 'Joe'),$check);
 
 ok(true,"Finish");
 
+ok($db->disconnect());
+
