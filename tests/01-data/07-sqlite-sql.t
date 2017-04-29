@@ -2,7 +2,7 @@
 
 require __DIR__ . '/../setup.php';
 
-plan(7);
+plan(8);
 
 $db = Siox\Db::factory(array(
   'driver' => 'dsn',
@@ -61,5 +61,5 @@ $select->where()->like('name','Wolf');
 
 diag($select->getSqlString());
 
-
+ok($db->disconnect());
 

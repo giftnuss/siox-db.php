@@ -66,6 +66,7 @@ class Db
         if($con instanceof PDO) {
             unset($this->adapter);
         }
+        return true;
         //->disconnect();
     }
 

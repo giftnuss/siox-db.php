@@ -18,3 +18,8 @@ if(!isset($GLOBALS['__setup_done'])) {
     }
   }
 }
+
+# some cleanup is required when all tests are run in one process
+unset($expect);
+unset($name);
+unset($names);
