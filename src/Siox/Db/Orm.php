@@ -47,7 +47,7 @@ class Orm
             }
         }
     }
-    
+
     public function query($arg)
     {
         if($arg instanceof Table) {
@@ -55,7 +55,7 @@ class Orm
         }
         else {
             $table = $this->table($arg);
-            if(!$arg) {
+            if(!$table) {
                 throw new DbException("Table $arg is unknown.");
             }
         }
