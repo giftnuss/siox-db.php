@@ -2,7 +2,7 @@
 
 require __DIR__ . '/../setup.php';
 
-plan(8);
+plan(11);
 
 $db = Siox\Db::factory(array(
   'driver' => 'dsn',
@@ -22,7 +22,7 @@ $schema->table('test_sql')->column
     ->int('id')
     ->word('name')
     ->constraint->pk('id');
-    
+
 $create = $sql->buildCreateTable($schema->getTable('test_sql'));
 isa_ok($create, 'Siox\\Db\\Sql\\CreateTable');
 
@@ -59,7 +59,11 @@ isa_ok($select, 'Siox\\Db\\Sql\\Select');
 
 $select->where()->like('name','Wolf');
 
-diag($select->getSqlString());
+# getSqlString can be called only one time
+#diag($select->getSqlString());
+
+$sql->doQuery($select,$cursor);
+ok($cursor->fetch(),'Wolf found');
 
 ok($db->disconnect());
 
