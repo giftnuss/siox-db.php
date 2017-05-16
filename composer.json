@@ -13,7 +13,7 @@
             "Siox\\": "src/"
         }
     },
-    "version": "v0.0.2",
+    "version": "v0.0.3",
     "license": "BSD-3",
     "authors":[
        {"name": "Zend-Framework Developers", "role": "Original Authors"},

@@ -2,7 +2,7 @@
 
 require __DIR__ . '/../setup.php';
 
-plan(1);
+plan(7);
 
 $db = Siox\Db::factory(array(
   'driver' => 'dsn',
@@ -52,6 +52,16 @@ foreach(range(0,1) as $c) {
 }
 is($id1,$id2,"if_not simple");
 
+$row = $query->pick(['id' => $id1]);
+is_deeply($row,['id' => $id1,'name' => 'Wolf'],'simple pick');
+
+try {
+    $row = $query->pick(['id' => -9999]);
+    ok(false,"Exception when record not found");
+}
+catch(Exception $e) {
+    pass($e->getMessage());
+}
 $list = [];
 $query->search(['name' => ['Louisa','Mona']],
     function ($row) use (&$list) {
@@ -59,6 +69,8 @@ $query->search(['name' => ['Louisa','Mona']],
     });
 sort($list);
 is_deeply($list,['Louisa','Mona'],'test IN query');
+
+
 
 ok($db->disconnect(),'disconnect');
 

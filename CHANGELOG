@@ -1,4 +1,7 @@
 
-- v0.0.2 -2017-05-05
+- v0.0.3 - 2017-05-16
+  - add a pick method to table query
+
+- v0.0.2 - 2017-05-05
   - TableQueries can search an array with results as WHERE ... IN (...)
   - sha1 and md5 as default types

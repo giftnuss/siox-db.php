@@ -61,5 +61,41 @@ class Query
             }
         }
     }
-
+   
+    /**
+     * Fetch a record by a unique identifier.
+     */
+    public function pick(array $args)
+    {
+	$select = $this->sql->select($this->table);
+        foreach($args as $k => $v) {
+            $select->where()->equal($k,new Bind($k,$v));
+        }
+	$result = null;
+        if($this->sql->doQuery($select,$cursor)) {
+            $cursor->setFetchMode(\PDO::FETCH_NAMED);
+            while($row = $cursor->fetch()) {
+                if($result === null) {
+		    $result = $row;
+		}
+		else {
+		    throw new \Exception(sprintf(
+		        "Query table %s is not unique. Arguments: %s",
+			$this->table->getName(), var_export($args,true)));
+		}
+            }
+        }
+	else {
+	    throw new \Exception(sprintf(
+		"Error pick a record from table %s with arguments %s", 
+		     $this->table->getName(),
+		     var_export($args,true)));
+	}
+	if($result === null) {
+	    throw new \Exception(sprintf(
+		"No Record found in table %s matching: %s", $this->table->getName(),
+		     var_export($args,true)));
+	}
+	return $result;
+    }
 }
