@@ -154,7 +154,7 @@ class Db
 
     public function beginTransaction()
     {
-        return $this->adpater->beginTransaction();
+        return $this->adapter->beginTransaction();
     }
 
     public function rollBack()
