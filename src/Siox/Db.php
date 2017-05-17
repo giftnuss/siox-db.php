@@ -151,4 +151,19 @@ class Db
 
         return $this->orm;
     }
+
+    public function beginTransaction()
+    {
+        return $this->adpater->beginTransaction();
+    }
+
+    public function rollBack()
+    {
+        return $this->adapter->rollBack();
+    }
+
+    public function commit()
+    {
+        return $this->adapter->commit();
+    }
 }

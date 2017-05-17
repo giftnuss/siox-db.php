@@ -2,7 +2,7 @@
 
 require __DIR__ . '/../setup.php';
 
-plan(7);
+plan(8);
 
 $db = Siox\Db::factory(array(
   'driver' => 'dsn',
@@ -70,7 +70,7 @@ $query->search(['name' => ['Louisa','Mona']],
 sort($list);
 is_deeply($list,['Louisa','Mona'],'test IN query');
 
-
+is($query->count(['name' => ['Louisa','Mona','Gandalf']]),2,"two rows found");
 
 ok($db->disconnect(),'disconnect');
 
