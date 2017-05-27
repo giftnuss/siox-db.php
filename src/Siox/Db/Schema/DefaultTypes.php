@@ -13,5 +13,6 @@ class DefaultTypes
 
         $s->type('digest_md5')->char->size(32);
         $s->type('digest_sha1')->char->size(40);
+        $s->type('digest_sha256')->char->size(64);
     }
 }
